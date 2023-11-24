@@ -1,0 +1,27 @@
+name: Пример Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout репозитория
+      uses: actions/checkout@v2
+
+    - name: Создание файла
+      run: |
+        echo "Привет, мир!" > привет.txt
+
+    - name: Установка зависимостей
+      run: |
+        echo "Установка зависимостей"
+        npm install
+
+    - name: Вывод приветственного сообщения
+      run: |
+        echo "Привет, GitHub Actions!"

@@ -1,0 +1,37 @@
+name: Test Script
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+on:
+  push:
+    branches:
+      - main  # Adjust this to your main branch name
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install Dependencies
+        run: |
+          pip install -r scripts.txt  # Replace with the command to install your script's dependencies
+
+      - name: Check if Testing Should Run
+        run: |
+          if [ "$RUN_TESTS" != "true" ]; then
+            echo "Testing is temporarily disabled. Set the RUN_TESTS environment variable to true to enable."
+            exit 0
+          fi
+      - name: Run Tests
+        run: |
+          python your_script_test.py  # Replace with the command to run your script's tests

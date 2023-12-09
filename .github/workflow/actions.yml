@@ -1,13 +1,9 @@
-name: Test Script
-
-on:
-  schedule:
-    - cron: '*/5 * * * *'
+name: Run Tests
 
 on:
   push:
     branches:
-      - main  # Adjust this to your main branch name
+      - main
 
 jobs:
   test:
@@ -20,12 +16,25 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.9
 
       - name: Install Dependencies
         run: |
-          pip install -r scripts.txt  # Replace with the command to install your script's dependencies
+          pip install -r requirements.txt  # Install your script's dependencies
 
-      - name: Run Tests
+      - name: Run Your Script
         run: |
-          python scripts.py  # Replace with the command to run your script's tests
+          python scripts.py  # Replace with the command to run your script
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
+
+      - name: Push Changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main

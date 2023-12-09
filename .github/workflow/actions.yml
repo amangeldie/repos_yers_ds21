@@ -24,8 +24,8 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install -r scripts.py  # Replace with the command to install your script's dependencies
+          pip install -r scripts.txt  # Replace with the command to install your script's dependencies
 
       - name: Run Tests
         run: |
-          python your_script_test.py  # Replace with the command to run your script's tests
+          python scripts.py  # Replace with the command to run your script's tests

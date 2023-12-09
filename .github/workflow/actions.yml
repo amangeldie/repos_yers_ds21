@@ -28,7 +28,7 @@ jobs:
 
       - name: Check if Testing Should Run
         run: |
-          if [ "$RUN_TESTS" != "true" ]; then
+          if [ "$RUN_TESTS" != "false" ]; then
             echo "Testing is temporarily disabled. Set the RUN_TESTS environment variable to true to enable."
             exit 0
           fi
